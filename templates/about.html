@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block style %} {% endblock %} 
+{% block title %} about {% endblock %}
+
+
+{% block aboutcurrent %} <li class="nav-item active"> {% endblock %}
+{% block body %} 
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+    <h1 class="display-4">Fluid jumbotron</h1>
+    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block login %}
+    {% if first %}
+        {% if admin %}
+            <li class="navbar-text">
+                <a class="nav-link" href="/userlist">Hello Admin</a>
+            </li>
+        {% else %}
+            <li class="navbar-text">
+                <a class="nav-link" href="#">Hello {{ first[0] }}</a>
+            </li>
+        {% endif %}
+        <li class="navbar-text">
+            <a class="nav-link" href="/logout">Logout</a>
+        </li>
+    {% else %}
+        <li class="navbar-text">
+            <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="navbar-text">
+            <a class="nav-link" href="/register">Register</a>
+        </li>
+    {% endif %}
+{% endblock %}

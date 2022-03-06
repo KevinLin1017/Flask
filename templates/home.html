@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block style %} {% endblock %} 
+{% block title %} Home {% endblock %}
+
+{% block homecurrent %} <li class="nav-item active"> {% endblock %}
+{% block body %} 
+<div class="jumbotron">
+    <h1 class="display-4">Hello, world!</h1>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <p class="lead">
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </p>
+</div>
+
+{% endblock %}
+
+{% block login %}
+    {% if first %}
+        {% if admin %}
+            <li class="navbar-text">
+                <a class="nav-link" href="/userlist">Hello Admin</a>
+            </li>
+        {% else %}
+            <li class="navbar-text">
+                <a class="nav-link" href="#">Hello {{ first[0] }}</a>
+            </li>
+        {% endif %}
+        <li class="navbar-text">
+            <a class="nav-link" href="/logout">Logout</a>
+        </li>
+    {% else %}
+        <li class="navbar-text">
+            <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="navbar-text">
+            <a class="nav-link" href="/register">Register</a>
+        </li>
+    {% endif %}
+{% endblock %}

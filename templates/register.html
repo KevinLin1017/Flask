@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block style %} <link rel="stylesheet" type= "text/css" href="../static//css/register.css"> {% endblock %} 
+{% block title %} Register {% endblock %}
+
+{% block body %} 
+<div class="form-container">
+    <form action="#" method="post">
+        <label class="form-title"> Create an Account! </label>
+        <br />
+        <br />
+        <div class="form-group">
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control" name="fname" value="{{ request.form['fname'] }}" placeholder="First name">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" name="lname" value="{{ request.form['lname'] }}" placeholder="Last name">
+                </div>
+            </div>
+            <input type="email" class="form-control" name="email" value="{{request.form['email']}}" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="rpassword"  placeholder="Repeat Password">
+        </div>
+        <p class="msg"> {{msg}} </p>
+        <button type="submit" class="btn btn-primary" value="submit">Sign Up</button>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block login %}
+        <li class="navbar-text">
+            <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="navbar-text">
+            <a class="nav-link" href="/register">Register</a>
+        </li>
+{% endblock %}

@@ -1,0 +1,58 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 26%;
+  background-color: rgba(30, 144, 255, 0.9);
+  padding: 20px;
+  box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);
+  margin-left: 37%;
+  margin-top: 10%;
+}
+
+input {
+  margin-bottom: 20px;
+}
+
+input[type="text"]:focus {
+  box-shadow: 7px 7px 7px rgba(0, 103, 206, 0.9);
+}
+
+input[type="email"]:focus {
+  box-shadow: 7px 7px 7px rgba(0, 103, 206, 0.9);
+}
+
+input[type="password"]:focus {
+  box-shadow: 7px 7px 7px rgba(0, 103, 206, 0.9);
+}
+
+.form-title {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 30;
+}
+
+label {
+  color: white;
+  text-shadow: 7px 0px 7px rgba(0, 103, 206, 0.9);
+}
+
+button {
+  margin-top: 15px;
+  width: 80%;
+  box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);
+  margin-left: 10%;
+}
+
+button:hover {
+  transform: scale(1.1) perspective(1px);
+}
+
+.msg {
+  display: flex;
+  justify-content: center;
+  color: whitesmoke;
+  font-weight: bold;
+}

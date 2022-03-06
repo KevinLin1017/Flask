@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block style %} <link rel="stylesheet" type= "text/css" href="../static/css/userlist.css"> {% endblock %} 
+{% block title %} Users List {% endblock %}
+
+{% block login %}
+    {% if first %}
+        {% if admin %}
+            <li class="navbar-text">
+                <a class="nav-link" href="/userlist">Hello Admin</a>
+            </li>
+        {% else %}
+            <li class="navbar-text">
+                <a class="nav-link" href="#">Hello {{ first[0] }}</a>
+            </li>
+        {% endif %}
+        <li class="navbar-text">
+            <a class="nav-link" href="/logout">Logout</a>
+        </li>
+    {% else %}
+        <li class="navbar-text">
+            <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="navbar-text">
+            <a class="nav-link" href="/register">Register</a>
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for item in output %}
+            <tr>
+                <td> {{ item.first.upper() }}  </td>
+                <td> {{ item.last }}  </td>
+                <td> {{ item.email }}  </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
