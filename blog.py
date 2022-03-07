@@ -1,3 +1,4 @@
+""" Sqlalchemy and flask project """
 import re
 from datetime import timedelta
 from flask import (
@@ -23,6 +24,8 @@ db = SQLAlchemy(app)
 
 
 class Users(db.Model):
+    """Model of users for the database"""
+
     id = db.Column(db.Integer, primary_key=True)
     first = db.Column(db.String(80), unique=False, nullable=True)
     last = db.Column(db.String(80), unique=False, nullable=True)
@@ -37,6 +40,8 @@ class Users(db.Model):
 
 
 class Posts(db.Model):
+    """Model of users post for the database"""
+
     id = db.Column(db.Integer, primary_key=True)
     first = db.Column(db.String(80), unique=False, nullable=True)
     title = db.Column(db.String(80), unique=False, nullable=True)
@@ -50,17 +55,21 @@ class Posts(db.Model):
 
 @app.route("/")
 def home():
-    return render_template(
-        "home.html",
-        first=session["first"],
-        last=session["last"],
-        email=session["email"],
-        admin=session["admin"],
-    )
+    """Home page"""
+    if session.get("first"):
+        return render_template(
+            "home.html",
+            first=session["first"],
+            last=session["last"],
+            email=session["email"],
+            admin=session["admin"],
+        )
+    return redirect(url_for("login"))
 
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
+    """Login page where everything is verified"""
     msg = " "
     form = request.form
     remail = request.cookies.get("email")
@@ -71,7 +80,7 @@ def login():
     listemail = []
 
     if remail and rpassword:
-        if radmin == True:
+        if radmin is True:
             user = Users.query.all()
         else:
             user = list(Users.query.filter_by(email=remail, password=rpassword))
@@ -96,7 +105,7 @@ def login():
 
         if len(email) == 0:
             msg = "Please enter an email addresss"
-        elif not re.match("[^@]+@[^@]+\.[^@]+", email):
+        elif not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             msg = "Invalid Email Address"
         elif len(password) == 0:
             msg = "Please enter a password"
@@ -105,10 +114,8 @@ def login():
             if email == "admin@gmail.com" and password == "password":
                 session["admin"] = True
                 user = Users.query.all()
-
             else:
                 user = list(Users.query.filter_by(email=email, password=password))
-
             if user:
                 for index in range(len(user)):
                     listfirst.append(user[index].first)
@@ -133,6 +140,7 @@ def login():
 
 @app.route("/setcookie", methods=["POST", "GET"])
 def setcookie():
+    """Set the cookies for user to relog into the page"""
     cookie = make_response(redirect(url_for("home")))
     cookie.set_cookie("email", session["currentemail"])
     cookie.set_cookie("password", session["password"])
@@ -142,6 +150,7 @@ def setcookie():
 
 @app.route("/logout")
 def logout():
+    """Logs out of the page and reset all cookies and sessions"""
     session["admin"] = False
     session["first"] = ""
     session["last"] = ""
@@ -154,17 +163,21 @@ def logout():
 
 @app.route("/about")
 def about():
-    return render_template(
-        "about.html",
-        first=session["first"],
-        last=session["last"],
-        email=session["email"],
-        admin=session["admin"],
-    )
+    """filler page"""
+    if session.get("first"):
+        return render_template(
+            "about.html",
+            first=session["first"],
+            last=session["last"],
+            email=session["email"],
+            admin=session["admin"],
+        )
+    return redirect(url_for("login"))
 
 
 @app.route("/userlist")
-def userList():
+def userlist():
+    """Display admin's user list"""
     output = []
     for i in range(len(session["first"])):
         output.append(
@@ -187,6 +200,7 @@ def userList():
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
+    """Form validation for user to register an account"""
     msg = " "
     form = request.form
     if request.method == "POST":
@@ -202,7 +216,7 @@ def register():
             msg = "Invalid Last Name!"
         elif len(email) == 0:
             msg = "Please enter an email addresss"
-        elif not re.match("[^@]+@[^@]+\.[^@]+", email):
+        elif not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             msg = "Invalid Email Address"
         elif len(password) == 0:
             msg = "Please enter a password"

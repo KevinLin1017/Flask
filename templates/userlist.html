@@ -40,8 +40,8 @@
             {% for item in output %}
             <tr>
                 <td> {{ item.first.upper() }}  </td>
-                <td> {{ item.last }}  </td>
-                <td> {{ item.email }}  </td>
+                <td> {{ item.last.upper() }}  </td>
+                <td> {{ item.email.upper() }}  </td>
             </tr>
             {% endfor %}
         </tbody>
